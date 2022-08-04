@@ -1,33 +1,35 @@
 from dataclasses import field
 from pyexpat import model
-import re
 from unicodedata import name
 from rest_framework import serializers
-from watchlist_app.models import Movie
+from watchlist_app.models import Watchlist, StreamPlatform
 
-class MovieSerializer(serializers.ModelSerializer):
-    len_name = serializers.SerializerMethodField()
+class StreamPlatformSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StreamPlatform
+        fields = "__all__"
+
+class WatchlistSerializer(serializers.ModelSerializer):
+    # len_name = serializers.SerializerMethodField()
     
     class Meta:
-        model = Movie
+        model = Watchlist
         fields = "__all__"
-        # fields = ['id', 'name', 'description']
-        # exclude = ['name']
         
-    def get_len_name(self, object):
-        return len(object.name)
+    # def get_len_name(self, object): 
+    #     return len(object.name)
  
-    def validate_name(self, value):
-        if len(value) < 2:
-            raise serializers.ValidationError("Name is too short")
-        else:
-            return value   
+    # def validate_name(self, value):
+    #     if len(value) < 2:
+    #         raise serializers.ValidationError("Name is too short")
+    #     else:
+    #         return value   
     
-    def validate(self, data):
-        if data['name'] == data['description']:
-            raise serializers.ValidationError("Name and description must not be the same")
-        else:
-            return data
+    # def validate(self, data):
+    #     if data['name'] == data['description']:
+    #         raise serializers.ValidationError("Name and description must not be the same")
+    #     else:
+    #         return data
  
 # class MovieSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
