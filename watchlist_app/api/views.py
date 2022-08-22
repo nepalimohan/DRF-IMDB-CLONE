@@ -68,6 +68,14 @@ class StreamPlatformVS (viewsets.ViewSet):
         watchlist = get_object_or_404(queryset, pk=pk)
         serializer = StreamPlatformSerializer(watchlist)
         return Response(serializer.data)
+    
+    def create(self, request ):
+        serializer = StreamPlatformSerializer(data= request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
 
 
 class StreamPlatformAV(APIView):
@@ -83,7 +91,7 @@ class StreamPlatformAV(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors)
-        
+          
 class StreamPlatformDetailAV(APIView):
     def get(self, request, pk):
         platform = StreamPlatform.objects.get(pk=pk)
