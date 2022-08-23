@@ -20,7 +20,7 @@ class WatchlistSerializer(serializers.ModelSerializer):
         
 class StreamPlatformSerializer(serializers.ModelSerializer):
     watchlist = WatchlistSerializer(many= True, read_only = True)
-    #this watchlist came from db where related name has been used
+    #this watchlist came from models.py where related name has been used in StreamPlatform Model
     
     class Meta:
         model = StreamPlatform
