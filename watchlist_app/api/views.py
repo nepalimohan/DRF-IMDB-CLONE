@@ -12,10 +12,11 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 
+# from watchlist_app.api.permissions import AdminOrReadOnly
 from watchlist_app.models import Watchlist, StreamPlatform, Review
 from watchlist_app.api.serializers import WatchlistSerializer, StreamPlatformSerializer, ReviewSerializer
 
-from .permissions import AdminOrReadOnly
+from .permissions import AdminOrReadOnly, ReviewUserorReadOnly
 
 #using generics
 class ReviewCreate(generics.CreateAPIView):
@@ -50,7 +51,7 @@ class ReviewList(generics.ListCreateAPIView):
 class ReviewDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [IsAuthenticated] #only logged in users can access
+    permission_classes = [ReviewUserorReadOnly] #only logged in users can access
     
 
 # class ReviewDetails(mixins.RetrieveModelMixin, generics.GenericAPIView): using mixins
