@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-class AdminOrReadOnly(permissions.IsAdminUser):
+class IsAdminOrReadOnly(permissions.IsAdminUser):
     
     def has_permission(self, request, view):
         # admin_permission = bool(request.user and request.user.is_staff)
@@ -13,7 +13,7 @@ class AdminOrReadOnly(permissions.IsAdminUser):
         else:
             return bool(request.user and request.user.is_staff)
         
-class ReviewUserorReadOnly(permissions.BasePermission):
+class IsReviewUserorReadOnly(permissions.BasePermission):
     
     def has_object_permission(self, request, view, obj):
         
